@@ -90,7 +90,8 @@ def displayBanner():
 if __name__ == '__main__':
     displayBanner()
     categories = ['abstract','technology','futuristic','digital','creativity','space','black','oled','dark','night', 'cars','sports+cars']
-    print(f"{Fore.LIGHTWHITE_EX}Enter: 'Y' -> (yes)\n'N' -> (no)\n'C' -> (Custom Category)\n'E' -> Exit")
+    print(f"\n{Fore.LIGHTWHITE_EX}User Choices:")
+    print(f"{Fore.LIGHTWHITE_EX}'Y' -> (yes)\n'N' -> (no)\n'C' -> (Custom Category)\n'E' -> Exit\n")
     while 1:
         cho_ice = str(choice(categories)).capitalize()
         print(f"{Fore.LIGHTWHITE_EX}Download {cho_ice} Wallpapers?")
