@@ -102,6 +102,8 @@ if __name__ == '__main__':
             wallpaperDownloader.downloadWallpapers()
         elif inp in {'e',"E"}:
             break
+        elif inp in {"n","N"}:
+            continue
         else:
             print(f"{Fore.LIGHTRED_EX}Invalid Input! Try Again!")
     exit()
