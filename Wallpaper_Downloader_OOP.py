@@ -67,6 +67,7 @@ class WallpaperDownloader:
         self.__cleanupActivity()
         print("================================")
         print(f"{Fore.LIGHTRED_EX}Exiting...")
+        exit()
         
 
 def displayBanner():
