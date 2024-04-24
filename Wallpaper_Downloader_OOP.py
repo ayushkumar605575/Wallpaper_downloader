@@ -11,20 +11,27 @@ from sys import exit
 
 init(True)
 
+with suppress(Exception):
+    mkdir('./Py_wallpaper')
+    print('Setting up things for the first time!!!')
+
 class WallpaperDownloader:
     def __init__(self, category: str):
-        with suppress(Exception):
-            mkdir('./Py_wallpaper')
-            print('Setting up things for the first time!!!')
         self.__startTime = time()
-        self.category = category
-        self.__url = G(''.join(['https://www.wallpaperflare.com/search?wallpaper=',self.category,"&width=2880&height=1800",'&page=',str(randint(1,35))]),timeout=10).content
+        self.category = category.replace(" ","+")
+        self.__urlContent = self.__getCorrectUrlContent()
         self.__oldWallpaper = set(listdir('./Py_wallpaper'))
         self.__threads: list[Thread] = []
         self.__finalWallpaperLink = set()
+
+    def __getCorrectUrlContent(self):
+        urlContent = G(url = f'https://www.wallpaperflare.com/search?wallpaper={self.category}&width=2880&height=1800&page={randint(1,35)}',timeout=10).content
+        if len(urlContent) <= 1582:
+            return G(url = f'https://www.wallpaperflare.com/search?wallpaper={self.category}&width=2880&height=1800',timeout=10).content
+        return urlContent
     
-    def __extractUrl(self, urlContent):
-        soup = bs(urlContent,'lxml')
+    def __extractUrl(self):
+        soup = bs(self.__urlContent,'lxml')
         links = soup.find_all('a',attrs={'itemprop':'url'})
         for link in links:
             yield (''.join([link['href'],'/download']))
@@ -43,7 +50,7 @@ class WallpaperDownloader:
             f.close()
 
     def __fetchMainUrl(self):
-        for mainUrl in self.__extractUrl(self.__url):
+        for mainUrl in self.__extractUrl():
             thread = Thread(target=self.__parseMainUrl, args=(mainUrl,))
             thread.start()
             self.__threads.append(thread)
@@ -106,7 +113,7 @@ if __name__ == '__main__':
         elif inp in {'e',"E"}:
             break
         elif inp in {"n","N"}:
-            continue
+            categories.remove(cho_ice)
         else:
             print(f"{Fore.LIGHTRED_EX}Invalid Input! Try Again!")
     exit()
