@@ -21,7 +21,7 @@ class WallpaperDownloader:
         self.category = category.replace(" ","+")
         self.__urlContent = self.__getCorrectUrlContent()
         self.__oldWallpaper = set(listdir('./Py_wallpaper'))
-        self.__threads: list[Thread] = []
+        self.__threads = []
         self.__finalWallpaperLink = set()
 
     def __getCorrectUrlContent(self):
