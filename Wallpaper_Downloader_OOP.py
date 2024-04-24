@@ -25,9 +25,9 @@ class WallpaperDownloader:
         self.__finalWallpaperLink = set()
 
     def __getCorrectUrlContent(self):
-        urlContent = G(url = f'https://www.wallpaperflare.com/search?wallpaper={self.category}&width=2880&height=1800&page={randint(1,35)}',timeout=10).content
+        urlContent = G(url = f'https://www.wallpaperflare.com/search?wallpaper={self.category}&page={randint(1,80)}',timeout=10).content
         if len(urlContent) <= 1582:
-            return G(url = f'https://www.wallpaperflare.com/search?wallpaper={self.category}&width=2880&height=1800',timeout=10).content
+            return G(url = f'https://www.wallpaperflare.com/search?wallpaper={self.category}',timeout=10).content
         return urlContent
     
     def __extractUrl(self):
